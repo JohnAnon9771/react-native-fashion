@@ -11,8 +11,10 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: "module",
   },
-  plugins: ["react", "react-hooks", "jsx-a11y", "@typescript-eslint"],
+  plugins: ["react", "react-hooks", "jsx-a11y", "import", "@typescript-eslint"],
   rules: {
     "react/style-prop-object": "off",
+    "import/prefer-default-export": "off",
+    "global-require": "off",
   },
 };
