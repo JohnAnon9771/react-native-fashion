@@ -20,4 +20,5 @@ export const Description = styled.Text`
   line-height: 24px;
   color: #0c0d34;
   text-align: center;
+  margin-bottom: 48px;
 `;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 import { onScrollEvent, useValue, interpolateColor } from "react-native-redash";
@@ -48,6 +48,7 @@ const slides = [
 ];
 
 const Onboarding: React.FC = () => {
+  const scroll = useRef<Animated.ScrollView>(null);
   const x = useValue(0);
   const onScroll = onScrollEvent({ x });
   const backgroundColor = interpolateColor(x, {
@@ -89,6 +90,11 @@ const Onboarding: React.FC = () => {
               subtitle={item.subtitle}
               description={item.description}
               last={index === slides.length - 1}
+              onPress={() => {
+                scroll.current
+                  ?.getNode()
+                  .scrollTo({ x: width * (index + 1), animated: true });
+              }}
             />
           ))}
         </Content>
