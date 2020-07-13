@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 import { interpolateColor, useScrollHandler } from "react-native-redash";
 
@@ -7,7 +7,7 @@ import Slide from "../../components/Slide";
 import SubSlide from "../../components/Slide/SubSlide";
 import Dot from "../../components/Dot";
 
-import { Container, Content, Footer, Slider } from "./styles";
+import { Container, Content, Footer, Slider, Pagination } from "./styles";
 
 const { width } = Dimensions.get("window");
 
@@ -67,15 +67,6 @@ const Onboarding: React.FC = () => {
           scrollEventThrottle={1}
           decelerationRate="fast"
         >
-          <View>
-            {slides.map((item, index) => (
-              <Dot
-                key={item.id}
-                currentIndex={divide(x, width)}
-                {...{ index }}
-              />
-            ))}
-          </View>
           {slides.map((slide, index) => (
             <Slide key={slide.id} title={slide.title} right={!!(index % 2)} />
           ))}
@@ -89,23 +80,39 @@ const Onboarding: React.FC = () => {
           style={{
             ...StyleSheet.absoluteFillObject,
             backgroundColor: "#fff",
-            width: width * slides.length,
-            transform: [{ translateX: multiply(x, -1) }],
           }}
         >
-          {slides.map((item, index) => (
-            <SubSlide
-              key={item.id}
-              subtitle={item.subtitle}
-              description={item.description}
-              last={index === slides.length - 1}
-              onPress={() => {
-                scroll.current
-                  ?.getNode()
-                  .scrollTo({ x: width * (index + 1), animated: true });
-              }}
-            />
-          ))}
+          <Pagination style={{ ...StyleSheet.absoluteFillObject }}>
+            {slides.map((item, index) => (
+              <Dot
+                key={item.id}
+                currentIndex={divide(x, width)}
+                {...{ index }}
+              />
+            ))}
+          </Pagination>
+          <Animated.View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              width: width * slides.length,
+              transform: [{ translateX: multiply(x, -1) }],
+            }}
+          >
+            {slides.map((item, index) => (
+              <SubSlide
+                key={item.id}
+                subtitle={item.subtitle}
+                description={item.description}
+                last={index === slides.length - 1}
+                onPress={() => {
+                  scroll.current
+                    ?.getNode()
+                    .scrollTo({ x: width * (index + 1), animated: true });
+                }}
+              />
+            ))}
+          </Animated.View>
         </Content>
       </Footer>
     </Container>
