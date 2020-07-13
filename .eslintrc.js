@@ -14,6 +14,7 @@ module.exports = {
   plugins: ["react", "react-hooks", "jsx-a11y", "import", "@typescript-eslint"],
   rules: {
     "react/style-prop-object": "off",
+    "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
     "global-require": "off",
   },

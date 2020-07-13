@@ -1,16 +1,17 @@
 import React, { useRef } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
-import { onScrollEvent, useValue, interpolateColor } from "react-native-redash";
+import { interpolateColor, useScrollHandler } from "react-native-redash";
 
 import Slide from "../../components/Slide";
 import SubSlide from "../../components/Slide/SubSlide";
+import Dot from "../../components/Dot";
 
-import { Container, Footer, Slider, Content } from "./styles";
+import { Container, Content, Footer, Slider } from "./styles";
 
 const { width } = Dimensions.get("window");
 
-const { multiply } = Animated;
+const { multiply, divide } = Animated;
 
 const slides = [
   {
@@ -49,8 +50,7 @@ const slides = [
 
 const Onboarding: React.FC = () => {
   const scroll = useRef<Animated.ScrollView>(null);
-  const x = useValue(0);
-  const onScroll = onScrollEvent({ x });
+  const { scrollHandler, x } = useScrollHandler();
   const backgroundColor = interpolateColor(x, {
     inputRange: slides.map((_, index) => index * width),
     outputRange: slides.map((slide) => slide.color),
@@ -60,13 +60,22 @@ const Onboarding: React.FC = () => {
     <Container>
       <Slider style={{ backgroundColor }}>
         <Animated.ScrollView
-          {...{ onScroll }}
+          {...scrollHandler}
           horizontal
           showsHorizontalScrollIndicator={false}
           snapToInterval={width}
           scrollEventThrottle={1}
           decelerationRate="fast"
         >
+          <View>
+            {slides.map((item, index) => (
+              <Dot
+                key={item.id}
+                currentIndex={divide(x, width)}
+                {...{ index }}
+              />
+            ))}
+          </View>
           {slides.map((slide, index) => (
             <Slide key={slide.id} title={slide.title} right={!!(index % 2)} />
           ))}
