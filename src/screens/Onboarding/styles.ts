@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
 
-const { height, width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 export const SLIDE_HEIGHT = height * 0.7;
 
 export const Container = styled.View`
