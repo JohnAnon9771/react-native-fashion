@@ -12,6 +12,7 @@ export const Container = styled.View`
 export const Slider = styled(Animated.View)`
   height: ${SLIDE_HEIGHT}px;
   border-bottom-right-radius: 75px;
+  overflow: hidden;
 `;
 
 export const Footer = styled.View`
