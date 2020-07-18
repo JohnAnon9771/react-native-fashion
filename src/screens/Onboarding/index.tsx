@@ -2,11 +2,13 @@ import React, { useRef } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { interpolateColor, useScrollHandler } from "react-native-redash";
+import { StackScreenProps } from "@react-navigation/stack";
 
 import Slide from "../../components/Slide";
 import SubSlide from "../../components/Slide/SubSlide";
 import Dot from "../../components/Dot";
 import Picture from "../../components/Picture";
+import { StackParamList } from "../../navigation/types";
 
 import { Container, Content, Footer, Slider, Pagination } from "./styles";
 
@@ -53,7 +55,9 @@ const slides = [
   },
 ];
 
-const Onboarding: React.FC = () => {
+type OnboardingProps = StackScreenProps<StackParamList, "Onboarding">;
+
+const Onboarding: React.FC<OnboardingProps> = () => {
   const scroll = useRef<Animated.ScrollView>(null);
   const { scrollHandler, x } = useScrollHandler();
   const backgroundColor = interpolateColor(x, {
@@ -66,7 +70,7 @@ const Onboarding: React.FC = () => {
       <Slider style={{ backgroundColor }}>
         <View>
           {slides.map((slide, index) => (
-            <Picture source={slide.picture} {...{ index, x }} />
+            <Picture key={slide.id} source={slide.picture} {...{ index, x }} />
           ))}
         </View>
         <Animated.ScrollView

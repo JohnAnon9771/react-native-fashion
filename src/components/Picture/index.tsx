@@ -19,10 +19,10 @@ interface Props {
 const Picture: React.FC<Props> = ({ source, x, index }) => {
   const opacity = interpolate(x, {
     inputRange: [
-      (index - 1) * width,
+      (index - 0.6) * width,
       index * width,
-      (index + 1) * width,
-      (index + 2) * width,
+      (index + 0.6) * width,
+      (index + 1.5) * width,
     ],
     outputRange: [0, 1, 0, 0],
   });
