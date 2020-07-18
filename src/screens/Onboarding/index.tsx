@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, Image } from "react-native";
 import Animated from "react-native-reanimated";
 import { interpolateColor, useScrollHandler } from "react-native-redash";
 
@@ -21,6 +21,7 @@ const slides = [
     description:
       "Confused about your outfit? Don't worry! Find the best outfit here!",
     color: "#BFEAF5",
+    picture: require("../../assets/pictures/picture1.png"),
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ const slides = [
     description:
       "Hating the clothes in your wardrobe? Explore hundreds of outfit ideas",
     color: "#BEECC4",
+    picture: require("../../assets/pictures/picture2.png"),
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ const slides = [
     description:
       "Create your individual & unique style and look amazing everyday",
     color: "#FFE4D9",
+    picture: require("../../assets/pictures/picture3.png"),
   },
   {
     id: 4,
@@ -45,6 +48,7 @@ const slides = [
     description:
       "Discover the latest trends in fashion and explore your personality",
     color: "#FFDDDD",
+    picture: require("../../assets/pictures/picture4.png"),
   },
 ];
 
@@ -71,6 +75,12 @@ const Onboarding: React.FC = () => {
             <Slide key={slide.id} title={slide.title} right={!!(index % 2)} />
           ))}
         </Animated.ScrollView>
+
+        <Animated.View>
+          {slides.map((slide, index) => (
+            <Image source={slide.picture} />
+          ))}
+        </Animated.View>
       </Slider>
       <Footer>
         <Animated.View
